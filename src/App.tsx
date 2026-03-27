@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
 import Layout from './components/Layout'
@@ -13,10 +13,34 @@ import { Loader2 } from 'lucide-react'
 
 type Page = 'dashboard' | 'operations' | 'new-operation' | 'edit-operation' | 'balance' | 'settlements'
 
+const PAGE_PARENT: Partial<Record<Page, Page>> = {
+  'new-operation': 'operations',
+  'edit-operation': 'operations',
+  'operations': 'dashboard',
+  'balance': 'dashboard',
+  'settlements': 'dashboard',
+}
+
 function AppInner() {
   const { user, loading } = useAuth()
   const [page, setPage] = useState<Page>('dashboard')
   const [editingId, setEditingId] = useState<string | undefined>()
+
+  // Android back button: navigate to parent page, exit on dashboard
+  useEffect(() => {
+    if (!user) return
+    window.history.pushState({ page }, '')
+    const handlePop = () => {
+      const parent = PAGE_PARENT[page]
+      if (parent) {
+        window.history.pushState({ page: parent }, '')
+        setPage(parent)
+      }
+      // on dashboard, let the browser exit naturally (no pushState)
+    }
+    window.addEventListener('popstate', handlePop)
+    return () => window.removeEventListener('popstate', handlePop)
+  }, [page, user])
 
   if (loading) {
     return (

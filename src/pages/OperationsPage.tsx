@@ -165,27 +165,25 @@ export default function OperationsPage({ onNavigate }: Props) {
                   </div>
                 )}
 
-                {/* Actions */}
-                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0">
+                {/* Actions — always visible on mobile, hover on desktop */}
+                <div className="flex items-center gap-2 flex-shrink-0 lg:opacity-0 lg:group-hover:opacity-100 lg:transition-opacity">
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.92 }}
                     onClick={() => onNavigate('edit-operation', op.id)}
-                    className="p-2 rounded-xl transition-colors"
-                    style={{ background: 'rgba(59,130,246,0.1)', color: '#3b82f6' }}
+                    className="p-3 rounded-xl transition-colors"
+                    style={{ background: 'rgba(59,130,246,0.12)', color: '#3b82f6' }}
                   >
-                    <Edit3 size={14} />
+                    <Edit3 size={18} />
                   </motion.button>
                   <motion.button
-                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.92 }}
                     onClick={() => handleDelete(op.id)}
-                    className="p-2 rounded-xl transition-colors"
+                    className="p-3 rounded-xl transition-colors"
                     style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444' }}
                   >
-                    <Trash2 size={14} />
+                    <Trash2 size={18} />
                   </motion.button>
                 </div>
-
-                <ChevronRight size={14} className="flex-shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: '#3b82f6' }} />
               </motion.div>
             ))
           )}

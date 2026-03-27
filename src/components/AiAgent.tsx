@@ -127,134 +127,135 @@ export default function AiAgent() {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send() }
   }
 
-  const Header = () => (
-    <div
-      className="flex items-center justify-between px-4 py-3 border-b flex-shrink-0"
-      style={{ borderColor: 'rgba(59,130,246,0.15)', background: 'rgba(10,15,28,0.98)' }}
-    >
-      <div className="flex items-center gap-3">
-        <div className="relative w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
-          style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
-          <Sparkles size={16} className="text-white" />
-          <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-400 border-2"
-            style={{ borderColor: '#0a0f1c' }} />
-        </div>
-        <div>
-          <div className="text-sm font-semibold text-white">Asistente Hostelpro</div>
-          <div className="text-xs flex items-center gap-1.5" style={{ color: '#10b981' }}>
-            <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
-            Gemini · En línea
+  const chatContent = (
+    <>
+      {/* Header */}
+      <div
+        className="flex items-center justify-between px-4 py-3 border-b flex-shrink-0"
+        style={{ borderColor: 'rgba(59,130,246,0.15)', background: 'rgba(10,15,28,0.98)' }}
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0"
+            style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
+            <Sparkles size={16} className="text-white" />
+            <span className="absolute -top-0.5 -right-0.5 w-3 h-3 rounded-full bg-green-400 border-2"
+              style={{ borderColor: '#0a0f1c' }} />
+          </div>
+          <div>
+            <div className="text-sm font-semibold text-white">Asistente Hostelpro</div>
+            <div className="text-xs flex items-center gap-1.5" style={{ color: '#10b981' }}>
+              <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+              Gemini · En línea
+            </div>
           </div>
         </div>
+        <div className="flex items-center gap-1">
+          <button onClick={clearHistory} title="Limpiar chat"
+            className="p-2.5 rounded-xl transition-colors" style={{ color: '#64748b' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#ef4444')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}>
+            <Trash2 size={18} />
+          </button>
+          <button onClick={() => setOpen(false)}
+            className="p-2.5 rounded-xl transition-colors" style={{ color: '#64748b' }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#e2e8f0')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}>
+            <ChevronDown size={22} className="lg:hidden" />
+            <X size={20} className="hidden lg:block" />
+          </button>
+        </div>
       </div>
-      <div className="flex items-center gap-1">
-        <button onClick={clearHistory} title="Limpiar chat"
-          className="p-2.5 rounded-xl transition-colors" style={{ color: '#64748b' }}
-          onMouseEnter={e => (e.currentTarget.style.color = '#ef4444')}
-          onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}>
-          <Trash2 size={18} />
-        </button>
-        <button onClick={() => setOpen(false)}
-          className="p-2.5 rounded-xl transition-colors" style={{ color: '#64748b' }}
-          onMouseEnter={e => (e.currentTarget.style.color = '#e2e8f0')}
-          onMouseLeave={e => (e.currentTarget.style.color = '#64748b')}>
-          <ChevronDown size={22} className="lg:hidden" />
-          <X size={20} className="hidden lg:block" />
-        </button>
-      </div>
-    </div>
-  )
 
-  const Messages = () => (
-    <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ background: 'rgba(6,10,20,0.9)' }}>
-      {messages.length === 0 && (
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center py-10">
-          <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center float"
-            style={{
-              background: 'linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))',
-              border: '1px solid rgba(59,130,246,0.3)',
-            }}>
-            <Bot size={28} style={{ color: '#60a5fa' }} />
-          </div>
-          <p className="text-base font-semibold text-white mb-1">¡Hola! Soy tu asistente</p>
-          <p className="text-sm mb-6 px-4" style={{ color: '#64748b' }}>
-            Pregúntame sobre IVA, beneficios, operaciones o cualquier duda del negocio.
-          </p>
-          <div className="space-y-2 px-2">
-            {SUGGESTIONS.map(q => (
-              <button key={q} onClick={() => { setInput(q); inputRef.current?.focus() }}
-                className="block w-full text-left text-sm px-4 py-3 rounded-2xl transition-all active:scale-95"
-                style={{
-                  background: 'rgba(59,130,246,0.08)',
-                  color: '#93c5fd',
-                  border: '1px solid rgba(59,130,246,0.18)',
-                }}>
-                {q}
-              </button>
-            ))}
-          </div>
-        </motion.div>
-      )}
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ background: 'rgba(6,10,20,0.9)' }}>
+        {messages.length === 0 && (
+          <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center py-10">
+            <div className="w-16 h-16 rounded-full mx-auto mb-4 flex items-center justify-center float"
+              style={{
+                background: 'linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))',
+                border: '1px solid rgba(59,130,246,0.3)',
+              }}>
+              <Bot size={28} style={{ color: '#60a5fa' }} />
+            </div>
+            <p className="text-base font-semibold text-white mb-1">¡Hola! Soy tu asistente</p>
+            <p className="text-sm mb-6 px-4" style={{ color: '#64748b' }}>
+              Pregúntame sobre IVA, beneficios, operaciones o cualquier duda del negocio.
+            </p>
+            <div className="space-y-2 px-2">
+              {SUGGESTIONS.map(q => (
+                <button key={q} onClick={() => { setInput(q); inputRef.current?.focus() }}
+                  className="block w-full text-left text-sm px-4 py-3 rounded-2xl transition-all active:scale-95"
+                  style={{
+                    background: 'rgba(59,130,246,0.08)',
+                    color: '#93c5fd',
+                    border: '1px solid rgba(59,130,246,0.18)',
+                  }}>
+                  {q}
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
 
-      {messages.map(msg => (
-        <motion.div key={msg.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
-          className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-2`}>
-          {msg.role === 'assistant' && (
-            <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mb-0.5"
+        {messages.map(msg => (
+          <motion.div key={msg.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'} items-end gap-2`}>
+            {msg.role === 'assistant' && (
+              <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mb-0.5"
+                style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
+                <Sparkles size={12} className="text-white" />
+              </div>
+            )}
+            <div className={`max-w-[78%] px-4 py-3 text-sm leading-relaxed ${msg.role === 'user' ? 'chat-bubble-user text-white' : 'chat-bubble-ai'}`}
+              style={msg.role === 'assistant' ? { color: '#cbd5e1' } : {}}>
+              {msg.content}
+            </div>
+          </motion.div>
+        ))}
+
+        {loading && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-end gap-2">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
               style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
               <Sparkles size={12} className="text-white" />
             </div>
-          )}
-          <div className={`max-w-[78%] px-4 py-3 text-sm leading-relaxed ${msg.role === 'user' ? 'chat-bubble-user text-white' : 'chat-bubble-ai'}`}
-            style={msg.role === 'assistant' ? { color: '#cbd5e1' } : {}}>
-            {msg.content}
-          </div>
-        </motion.div>
-      ))}
-
-      {loading && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-end gap-2">
-          <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0"
-            style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>
-            <Sparkles size={12} className="text-white" />
-          </div>
-          <div className="chat-bubble-ai px-4 py-3 flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-blue-400 typing-dot" />
-            <div className="w-2 h-2 rounded-full bg-blue-400 typing-dot" />
-            <div className="w-2 h-2 rounded-full bg-blue-400 typing-dot" />
-          </div>
-        </motion.div>
-      )}
-      <div ref={endRef} />
-    </div>
-  )
-
-  const InputBar = () => (
-    <div className="p-3 border-t flex-shrink-0"
-      style={{ borderColor: 'rgba(59,130,246,0.1)', background: 'rgba(10,15,28,0.98)' }}>
-      <div className="flex items-end gap-2">
-        <textarea
-          ref={inputRef}
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={onKey}
-          placeholder="Escribe tu pregunta..."
-          rows={1}
-          className="hp-input flex-1 resize-none text-sm"
-          style={{ minHeight: '44px', maxHeight: '100px' }}
-        />
-        <motion.button
-          onClick={send}
-          disabled={!input.trim() || loading}
-          whileHover={{ scale: 1.06 }}
-          whileTap={{ scale: 0.94 }}
-          className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40"
-          style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)' }}
-        >
-          <Send size={16} className="text-white" />
-        </motion.button>
+            <div className="chat-bubble-ai px-4 py-3 flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-blue-400 typing-dot" />
+              <div className="w-2 h-2 rounded-full bg-blue-400 typing-dot" />
+              <div className="w-2 h-2 rounded-full bg-blue-400 typing-dot" />
+            </div>
+          </motion.div>
+        )}
+        <div ref={endRef} />
       </div>
-    </div>
+
+      {/* Input bar */}
+      <div className="p-3 border-t flex-shrink-0"
+        style={{ borderColor: 'rgba(59,130,246,0.1)', background: 'rgba(10,15,28,0.98)' }}>
+        <div className="flex items-end gap-2">
+          <textarea
+            ref={inputRef}
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={onKey}
+            placeholder="Escribe tu pregunta..."
+            rows={1}
+            className="hp-input flex-1 resize-none text-sm"
+            style={{ minHeight: '44px', maxHeight: '100px' }}
+          />
+          <motion.button
+            onClick={send}
+            disabled={!input.trim() || loading}
+            whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.94 }}
+            className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 disabled:opacity-40"
+            style={{ background: 'linear-gradient(135deg, #3b82f6, #2563eb)' }}
+          >
+            <Send size={16} className="text-white" />
+          </motion.button>
+        </div>
+      </div>
+    </>
   )
 
   return (
@@ -281,7 +282,7 @@ export default function AiAgent() {
       <AnimatePresence>
         {open && (
           <>
-            {/* ── MOBILE: bottom sheet full-screen ── */}
+            {/* MOBILE: bottom sheet full-screen */}
             <motion.div
               key="mob-backdrop"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -304,12 +305,10 @@ export default function AiAgent() {
               <div className="flex justify-center pt-3 pb-1 flex-shrink-0">
                 <div className="w-10 h-1 rounded-full" style={{ background: 'rgba(100,116,139,0.5)' }} />
               </div>
-              <Header />
-              <Messages />
-              <InputBar />
+              {chatContent}
             </motion.div>
 
-            {/* ── DESKTOP: floating panel ── */}
+            {/* DESKTOP: floating panel */}
             <motion.div
               key="desk-panel"
               initial={{ opacity: 0, scale: 0.92, y: 16 }}
@@ -324,9 +323,7 @@ export default function AiAgent() {
                 boxShadow: '0 24px 80px rgba(0,0,0,0.6), 0 0 40px rgba(59,130,246,0.12)',
               }}
             >
-              <Header />
-              <Messages />
-              <InputBar />
+              {chatContent}
             </motion.div>
           </>
         )}

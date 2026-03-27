@@ -159,7 +159,7 @@ export default function Layout({ page, setPage, children }: Props) {
       </AnimatePresence>
 
       {/* Main content */}
-      <main className="flex-1 overflow-y-auto lg:pt-0 pt-14 lg:pb-0 pb-20">
+      <main className="flex-1 overflow-y-auto lg:pt-0 pt-16 lg:pb-0 pb-20">
         <div className="bg-dots absolute inset-0 pointer-events-none opacity-40" />
         <AnimatePresence mode="wait">
           <motion.div

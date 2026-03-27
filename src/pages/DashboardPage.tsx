@@ -197,7 +197,7 @@ export default function DashboardPage({ onNavigate }: Props) {
       </motion.div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-1">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {cards.map((card, i) => {
           const Icon = card.icon
           const isCurrency = card.currency !== false
@@ -233,7 +233,7 @@ export default function DashboardPage({ onNavigate }: Props) {
       </div>
 
       {/* Chart + Recent */}
-      <div className="grid lg:grid-cols-5 gap-1">
+      <div className="grid lg:grid-cols-5 gap-3">
         {/* Chart */}
         <motion.div {...fadeUp(0.2)} className="lg:col-span-3 glass rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
@@ -279,7 +279,7 @@ export default function DashboardPage({ onNavigate }: Props) {
               Ver todas <ArrowRight size={12} />
             </button>
           </div>
-          <div className="space-y-1">
+          <div className="space-y-2">
             {loading ? (
               Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="h-12 rounded-xl shimmer" />
@@ -331,7 +331,7 @@ export default function DashboardPage({ onNavigate }: Props) {
             Máquinas pendientes de venta
             <span className="ml-2 text-xs px-2 py-0.5 rounded-full badge-pending">{pending.length}</span>
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-1">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {pending.map(op => (
               <motion.button
                 key={op.id}

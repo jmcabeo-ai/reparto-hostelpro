@@ -177,7 +177,7 @@ export default function SettlementsPage() {
       </AnimatePresence>
 
       {/* History */}
-      <div className="space-y-1">
+      <div className="space-y-2">
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-16 rounded-2xl shimmer" />)
         ) : settlements.length === 0 ? (

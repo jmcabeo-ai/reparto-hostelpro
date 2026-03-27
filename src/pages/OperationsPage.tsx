@@ -93,7 +93,7 @@ export default function OperationsPage({ onNavigate }: Props) {
       </motion.div>
 
       {/* List */}
-      <div className="space-y-1">
+      <div className="space-y-2">
         <AnimatePresence>
           {loading ? (
             Array.from({ length: 5 }).map((_, i) => (

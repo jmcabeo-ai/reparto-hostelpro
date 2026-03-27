@@ -41,7 +41,7 @@ export default function OperationsPage({ onNavigate }: Props) {
   }
 
   return (
-    <div className="px-6 py-6 sm:px-10 lg:px-14 max-w-7xl mx-auto space-y-5">
+    <div className="px-4 py-4 sm:px-8 lg:px-14 max-w-7xl mx-auto space-y-4">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between">
         <div>

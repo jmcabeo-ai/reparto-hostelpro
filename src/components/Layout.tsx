@@ -101,12 +101,15 @@ export default function Layout({ page, setPage, children }: Props) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 glass border-b" style={{ borderColor: 'rgba(59,130,246,0.1)' }}>
-        <div className="flex items-center gap-2">
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-3 glass-strong" style={{ borderBottom: '1px solid rgba(59,130,246,0.15)' }}>
+        <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-xl overflow-hidden flex-shrink-0" style={{ background: 'white', padding: '1px' }}>
             <img src="https://hostelpro.net/logo.png" alt="" className="w-full h-full object-contain rounded-lg" />
           </div>
-          <span className="font-bold text-white text-sm">Hostelpro</span>
+          <div>
+            <span className="font-bold text-white text-sm block leading-tight">Hostelpro</span>
+            <span className="text-xs leading-tight" style={{ color: '#3b82f6', fontSize: '10px' }}>Panel de socios</span>
+          </div>
         </div>
         <button onClick={() => setMobileOpen(true)} className="p-2 rounded-xl" style={{ color: '#64748b' }}>
           <Menu size={20} />
@@ -159,7 +162,7 @@ export default function Layout({ page, setPage, children }: Props) {
       </AnimatePresence>
 
       {/* Main content */}
-      <main className="flex-1 overflow-y-auto lg:pt-0 pt-16 lg:pb-0 pb-20">
+      <main className="flex-1 overflow-y-auto lg:pt-0 pt-14 lg:pb-0 pb-[68px]">
         <div className="bg-dots absolute inset-0 pointer-events-none opacity-40" />
         <AnimatePresence mode="wait">
           <motion.div
@@ -178,7 +181,7 @@ export default function Layout({ page, setPage, children }: Props) {
       {/* Mobile bottom tab bar */}
       <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 glass-strong border-t"
         style={{ borderColor: 'rgba(59,130,246,0.12)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <div className="flex items-center justify-around px-2 py-2">
+        <div className="flex items-center justify-around px-3 py-1.5">
           {navItems.map(item => {
             const Icon = item.icon
             const active = page === item.id
@@ -186,23 +189,25 @@ export default function Layout({ page, setPage, children }: Props) {
               <button
                 key={item.id}
                 onClick={() => setPage(item.id)}
-                className="flex flex-col items-center gap-1 px-4 py-1.5 rounded-xl transition-all duration-200 flex-1"
+                className="flex flex-col items-center gap-0.5 py-2 rounded-2xl transition-all duration-200 flex-1 relative"
                 style={{ color: active ? '#60a5fa' : '#475569' }}
               >
-                <motion.div
-                  animate={{ scale: active ? 1.15 : 1 }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                >
-                  <Icon size={20} />
-                </motion.div>
-                <span className="text-xs font-medium">{item.label}</span>
                 {active && (
                   <motion.div
-                    layoutId="bottom-nav-indicator"
-                    className="absolute bottom-1 w-1 h-1 rounded-full"
-                    style={{ background: '#3b82f6' }}
+                    layoutId="bottom-nav-pill"
+                    className="absolute inset-x-1 inset-y-0 rounded-2xl"
+                    style={{ background: 'rgba(59,130,246,0.13)', border: '1px solid rgba(59,130,246,0.2)' }}
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
+                <motion.div
+                  animate={{ scale: active ? 1.1 : 1, y: active ? -1 : 0 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                  className="relative z-10"
+                >
+                  <Icon size={21} strokeWidth={active ? 2.5 : 1.8} />
+                </motion.div>
+                <span className="text-xs font-semibold relative z-10" style={{ fontSize: '10px' }}>{item.label}</span>
               </button>
             )
           })}

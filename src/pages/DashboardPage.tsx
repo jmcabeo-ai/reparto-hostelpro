@@ -134,36 +134,36 @@ export default function DashboardPage({ onNavigate }: Props) {
   })
 
   return (
-    <div className="px-6 py-6 sm:px-10 lg:px-14 max-w-7xl mx-auto space-y-5">
+    <div className="px-4 py-4 sm:px-8 lg:px-14 max-w-7xl mx-auto space-y-4">
       {/* Header */}
       <motion.div {...fadeUp()} className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Panel principal</h1>
-          <p className="text-sm mt-0.5" style={{ color: '#64748b' }}>Resumen de operaciones y beneficios</p>
+          <h1 className="text-xl font-bold text-white">Panel principal</h1>
+          <p className="text-xs mt-0.5" style={{ color: '#475569' }}>Resumen de operaciones y beneficios</p>
         </div>
         <motion.button
           onClick={() => onNavigate('new-operation')}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-1.5 text-sm py-2 px-4"
         >
-          <Plus size={16} /> Nueva operación
+          <Plus size={15} /> Nueva operación
         </motion.button>
       </motion.div>
 
       {/* Filters */}
-      <motion.div {...fadeUp(0.05)} className="space-y-3">
-        <div className="flex flex-wrap gap-1.5">
+      <motion.div {...fadeUp(0.05)} className="space-y-2">
+        <div className="flex flex-wrap gap-1">
           {FILTERS.map(f => (
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
-              className="px-3 py-1.5 rounded-xl text-xs font-medium transition-all duration-200"
+              className="px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-200"
               style={filter === f.key
-                ? { background: 'linear-gradient(135deg, #3b82f6, #2563eb)', color: 'white' }
-                : { background: 'rgba(255,255,255,0.04)', color: '#64748b', border: '1px solid rgba(59,130,246,0.1)' }}
+                ? { background: 'linear-gradient(135deg, #3b82f6, #2563eb)', color: 'white', boxShadow: '0 2px 8px rgba(59,130,246,0.3)' }
+                : { background: 'rgba(255,255,255,0.04)', color: '#475569', border: '1px solid rgba(59,130,246,0.1)' }}
             >
-              {f.key === 'custom' ? <span className="flex items-center gap-1"><Calendar size={11} />{f.label}</span> : f.label}
+              {f.key === 'custom' ? <span className="flex items-center gap-1"><Calendar size={10} />{f.label}</span> : f.label}
             </button>
           ))}
         </div>
@@ -197,7 +197,7 @@ export default function DashboardPage({ onNavigate }: Props) {
       </motion.div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5">
         {cards.map((card, i) => {
           const Icon = card.icon
           const isCurrency = card.currency !== false
@@ -205,27 +205,32 @@ export default function DashboardPage({ onNavigate }: Props) {
             <motion.div
               key={card.label}
               {...fadeUp(0.05 * i)}
-              className="glass rounded-2xl p-5 card-hover relative overflow-hidden"
+              className="glass rounded-2xl p-4 card-hover relative overflow-hidden"
             >
-              <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full opacity-10 blur-xl"
+              {/* Color accent strip at top */}
+              <div className="absolute top-0 left-4 right-4 h-0.5 rounded-full opacity-60"
                 style={{ background: card.grad }} />
-              <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-3"
-                style={{ background: `${card.color}18`, border: `1px solid ${card.color}30` }}>
-                <Icon size={16} style={{ color: card.color }} />
+              <div className="absolute -bottom-6 -right-6 w-20 h-20 rounded-full opacity-8 blur-2xl"
+                style={{ background: card.color }} />
+              <div className="flex items-center justify-between mb-3">
+                <div className="w-8 h-8 rounded-xl flex items-center justify-center"
+                  style={{ background: `${card.color}18`, border: `1px solid ${card.color}25` }}>
+                  <Icon size={15} style={{ color: card.color }} />
+                </div>
               </div>
-              <div className="text-xs mb-1.5" style={{ color: '#64748b' }}>{card.label}</div>
-              <div className="text-xl font-bold text-white">
+              <div className="text-xs mb-1" style={{ color: '#475569' }}>{card.label}</div>
+              <div className="text-2xl font-black text-white leading-tight">
                 {loading ? (
-                  <div className="h-7 w-24 rounded shimmer" />
+                  <div className="h-8 w-20 rounded-lg shimmer" />
                 ) : isCurrency ? (
                   <AnimatedNumber value={card.value} currency />
                 ) : (
                   <span>{card.value}</span>
                 )}
               </div>
-              {card.suffix && <span className="text-xs" style={{ color: card.color }}>{card.suffix}</span>}
+              {card.suffix && <span className="text-xs font-medium" style={{ color: card.color }}>{card.suffix}</span>}
               {'sub' in card && card.sub && (
-                <div className="text-xs mt-1" style={{ color: '#64748b' }}>{card.sub}</div>
+                <div className="text-xs mt-0.5" style={{ color: '#475569' }}>{card.sub}</div>
               )}
             </motion.div>
           )
@@ -233,45 +238,45 @@ export default function DashboardPage({ onNavigate }: Props) {
       </div>
 
       {/* Chart + Recent */}
-      <div className="grid lg:grid-cols-5 gap-3">
+      <div className="grid lg:grid-cols-5 gap-2.5">
         {/* Chart */}
-        <motion.div {...fadeUp(0.2)} className="lg:col-span-3 glass rounded-2xl p-5">
-          <div className="flex items-center justify-between mb-4">
+        <motion.div {...fadeUp(0.2)} className="lg:col-span-3 glass rounded-2xl p-4">
+          <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-white text-sm">Beneficio por mes</h2>
-            <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(16,185,129,0.12)', color: '#10b981' }}>
+            <span className="text-xs px-2 py-0.5 rounded-full" style={{ background: 'rgba(16,185,129,0.12)', color: '#10b981', border: '1px solid rgba(16,185,129,0.2)' }}>
               {filter === 'all' ? 'Todo el historial' : FILTERS.find(f => f.key === filter)?.label}
             </span>
           </div>
           {chartData.length === 0 ? (
-            <div className="flex items-center justify-center h-40 text-sm" style={{ color: '#334155' }}>
+            <div className="flex items-center justify-center h-36 text-sm" style={{ color: '#334155' }}>
               Sin datos de ventas en este período
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height={180}>
+            <ResponsiveContainer width="100%" height={160}>
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="profitGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.3} />
+                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.35} />
                     <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="month" tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: '#64748b', fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={v => `${v}€`} />
+                <XAxis dataKey="month" tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: '#475569', fontSize: 10 }} axisLine={false} tickLine={false} tickFormatter={v => `${v}€`} width={45} />
                 <Tooltip
-                  contentStyle={{ background: '#0f1623', border: '1px solid rgba(59,130,246,0.2)', borderRadius: 10, fontSize: 12 }}
+                  contentStyle={{ background: '#0d1424', border: '1px solid rgba(59,130,246,0.25)', borderRadius: 12, fontSize: 12 }}
                   labelStyle={{ color: '#94a3b8' }}
                   itemStyle={{ color: '#60a5fa' }}
                   formatter={(v) => [formatEUR(v as number), 'Beneficio']}
                 />
-                <Area type="monotone" dataKey="profit" stroke="#3b82f6" strokeWidth={2} fill="url(#profitGrad)" />
+                <Area type="monotone" dataKey="profit" stroke="#3b82f6" strokeWidth={2.5} fill="url(#profitGrad)" dot={{ fill: '#3b82f6', strokeWidth: 0, r: 3 }} />
               </AreaChart>
             </ResponsiveContainer>
           )}
         </motion.div>
 
         {/* Recent operations */}
-        <motion.div {...fadeUp(0.25)} className="lg:col-span-2 glass rounded-2xl p-5">
-          <div className="flex items-center justify-between mb-4">
+        <motion.div {...fadeUp(0.25)} className="lg:col-span-2 glass rounded-2xl p-4">
+          <div className="flex items-center justify-between mb-3">
             <h2 className="font-semibold text-white text-sm">Recientes</h2>
             <button onClick={() => onNavigate('operations')} className="text-xs flex items-center gap-1 transition-colors" style={{ color: '#3b82f6' }}
               onMouseEnter={e => (e.currentTarget.style.color = '#60a5fa')}
@@ -279,10 +284,10 @@ export default function DashboardPage({ onNavigate }: Props) {
               Ver todas <ArrowRight size={12} />
             </button>
           </div>
-          <div className="space-y-2">
+          <div className="space-y-1">
             {loading ? (
               Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="h-12 rounded-xl shimmer" />
+                <div key={i} className="h-11 rounded-xl shimmer" />
               ))
             ) : operations.slice(0, 5).length === 0 ? (
               <div className="text-center py-8 text-sm" style={{ color: '#334155' }}>
@@ -293,28 +298,29 @@ export default function DashboardPage({ onNavigate }: Props) {
                 <motion.button
                   key={op.id}
                   onClick={() => onNavigate('edit-operation', op.id)}
-                  whileHover={{ x: 3 }}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl text-left transition-colors"
+                  whileHover={{ x: 2 }}
+                  className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-xl text-left transition-colors"
                   style={{ background: 'rgba(255,255,255,0.02)' }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(59,130,246,0.06)')}
+                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(59,130,246,0.07)')}
                   onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.02)')}
                 >
-                  <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 text-xs font-bold text-white"
-                    style={{ background: op.status === 'pending' ? 'rgba(245,158,11,0.2)' : op.status === 'sold' ? 'rgba(16,185,129,0.2)' : 'rgba(139,92,246,0.2)' }}>
+                  <div className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold text-white"
+                    style={{ background: op.status === 'pending' ? 'rgba(245,158,11,0.25)' : op.status === 'sold' ? 'rgba(16,185,129,0.25)' : 'rgba(139,92,246,0.25)' }}>
                     {op.client_name[0].toUpperCase()}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="text-xs font-medium text-white truncate">{op.client_name}</div>
-                    <div className="text-xs truncate" style={{ color: '#64748b' }}>{op.machine_description}</div>
+                    <div className="text-xs font-semibold text-white truncate">{op.client_name}</div>
+                    <div className="text-xs truncate" style={{ color: '#475569', fontSize: '10px' }}>{op.machine_description}</div>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <span className={`text-xs px-2 py-0.5 rounded-full badge-${op.status}`}>{
-                      op.status === 'pending' ? 'Pendiente' : op.status === 'sold' ? 'Vendida' : 'Liquidada'
-                    }</span>
-                    {op.profit_net != null && (
-                      <div className="text-xs mt-0.5 font-medium" style={{ color: op.profit_net >= 0 ? '#10b981' : '#ef4444' }}>
+                    {op.profit_net != null ? (
+                      <div className="text-xs font-bold" style={{ color: op.profit_net >= 0 ? '#10b981' : '#ef4444' }}>
                         {formatEUR(op.profit_net)}
                       </div>
+                    ) : (
+                      <span className={`text-xs px-1.5 py-0.5 rounded-full badge-${op.status}`} style={{ fontSize: '10px' }}>{
+                        op.status === 'pending' ? 'Pend.' : 'Vendida'
+                      }</span>
                     )}
                   </div>
                 </motion.button>

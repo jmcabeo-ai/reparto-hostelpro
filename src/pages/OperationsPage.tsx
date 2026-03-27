@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Search, Filter, Edit3, Trash2, ChevronRight } from 'lucide-react'
+import { Plus, Search, Filter, Edit3, Trash2 } from 'lucide-react'
 import { useOperations } from '../hooks/useOperations'
 import { formatEUR, formatDate } from '../lib/profit'
 import { supabase } from '../lib/supabase'

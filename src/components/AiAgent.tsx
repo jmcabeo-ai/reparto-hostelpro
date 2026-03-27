@@ -11,7 +11,7 @@ interface Message {
 }
 
 const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY as string
-const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent?key=${GEMINI_API_KEY}`
 
 const SYSTEM_PROMPT = `Eres el asistente de Hostelpro, una empresa de maquinaria de hostelería.
 Ayudas a Aitor y Jonathan, los dos socios del negocio, con sus dudas sobre:

@@ -117,7 +117,7 @@ export default function OperationsPage({ onNavigate }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ delay: i * 0.03 }}
-                className="glass rounded-2xl p-5 sm:p-7 card-hover flex items-center gap-4 group"
+                className="glass rounded-2xl p-5 card-hover flex items-center gap-4 group"
               >
                 {/* Avatar */}
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold text-white flex-shrink-0"

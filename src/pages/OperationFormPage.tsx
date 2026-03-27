@@ -41,7 +41,7 @@ const VAT_RATES = [
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="glass rounded-2xl p-6 sm:p-8 space-y-4">
+    <div className="glass rounded-2xl p-5 space-y-4">
       <h3 className="text-sm font-semibold text-white">{title}</h3>
       {children}
     </div>

@@ -87,7 +87,7 @@ export default function SettlementsPage() {
 
       {/* Summary */}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.05 }}
-        className="glass rounded-2xl p-5 sm:p-7 flex items-center gap-4">
+        className="glass rounded-2xl p-5 flex items-center gap-4">
         <div className="w-12 h-12 rounded-xl flex items-center justify-center"
           style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.2), rgba(139,92,246,0.2))' }}>
           <ArrowLeftRight size={20} style={{ color: '#60a5fa' }} />
@@ -193,7 +193,7 @@ export default function SettlementsPage() {
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.04 }}
-              className="glass rounded-2xl p-5 sm:p-7 flex items-center gap-4 card-hover"
+              className="glass rounded-2xl p-5 flex items-center gap-4 card-hover"
             >
               <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0"
                 style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.2)' }}>

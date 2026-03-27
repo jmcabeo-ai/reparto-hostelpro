@@ -168,7 +168,7 @@ export default function Layout({ page, setPage, children }: Props) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.25 }}
-            className="relative min-h-full px-4 sm:px-6 lg:px-8"
+            className="relative min-h-full"
           >
             {children}
           </motion.div>

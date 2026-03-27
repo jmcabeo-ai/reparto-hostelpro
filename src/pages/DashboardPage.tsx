@@ -205,7 +205,7 @@ export default function DashboardPage({ onNavigate }: Props) {
             <motion.div
               key={card.label}
               {...fadeUp(0.05 * i)}
-              className="glass rounded-2xl p-6 sm:p-7 card-hover relative overflow-hidden"
+              className="glass rounded-2xl p-5 card-hover relative overflow-hidden"
             >
               <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full opacity-10 blur-xl"
                 style={{ background: card.grad }} />
@@ -235,7 +235,7 @@ export default function DashboardPage({ onNavigate }: Props) {
       {/* Chart + Recent */}
       <div className="grid lg:grid-cols-5 gap-1">
         {/* Chart */}
-        <motion.div {...fadeUp(0.2)} className="lg:col-span-3 glass rounded-2xl p-6 sm:p-7">
+        <motion.div {...fadeUp(0.2)} className="lg:col-span-3 glass rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-white text-sm">Beneficio por mes</h2>
             <span className="text-xs px-2 py-1 rounded-full" style={{ background: 'rgba(16,185,129,0.12)', color: '#10b981' }}>
@@ -270,7 +270,7 @@ export default function DashboardPage({ onNavigate }: Props) {
         </motion.div>
 
         {/* Recent operations */}
-        <motion.div {...fadeUp(0.25)} className="lg:col-span-2 glass rounded-2xl p-6 sm:p-7">
+        <motion.div {...fadeUp(0.25)} className="lg:col-span-2 glass rounded-2xl p-5">
           <div className="flex items-center justify-between mb-4">
             <h2 className="font-semibold text-white text-sm">Recientes</h2>
             <button onClick={() => onNavigate('operations')} className="text-xs flex items-center gap-1 transition-colors" style={{ color: '#3b82f6' }}
@@ -326,7 +326,7 @@ export default function DashboardPage({ onNavigate }: Props) {
 
       {/* Pending ops */}
       {pending.length > 0 && (
-        <motion.div {...fadeUp(0.3)} className="glass rounded-2xl p-6 sm:p-7">
+        <motion.div {...fadeUp(0.3)} className="glass rounded-2xl p-5">
           <h2 className="font-semibold text-white text-sm mb-4">
             Máquinas pendientes de venta
             <span className="ml-2 text-xs px-2 py-0.5 rounded-full badge-pending">{pending.length}</span>

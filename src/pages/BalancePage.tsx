@@ -71,7 +71,7 @@ export default function BalancePage({ onNavigate }: Props) {
 
       {/* Summary cards */}
       <div className="grid sm:grid-cols-3 gap-1">
-        <motion.div {...fadeUp(0.05)} className="glass rounded-2xl p-6 sm:p-8 card-hover">
+        <motion.div {...fadeUp(0.05)} className="glass rounded-2xl p-5 card-hover">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'rgba(16,185,129,0.15)' }}>
               <TrendingUp size={18} style={{ color: '#10b981' }} />
@@ -90,7 +90,7 @@ export default function BalancePage({ onNavigate }: Props) {
           { name: p1?.name ?? 'Socio 1', balance: summary.aitorBalance },
           { name: p2?.name ?? 'Socio 2', balance: summary.jonathanBalance },
         ].map((p, i) => (
-          <motion.div key={p.name} {...fadeUp(0.1 + i * 0.05)} className="glass rounded-2xl p-6 sm:p-8 card-hover">
+          <motion.div key={p.name} {...fadeUp(0.1 + i * 0.05)} className="glass rounded-2xl p-5 card-hover">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold text-white"
                 style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)' }}>

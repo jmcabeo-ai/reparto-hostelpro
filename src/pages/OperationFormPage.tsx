@@ -584,13 +584,13 @@ export default function OperationFormPage({ operationId, onBack, onSaved }: Prop
               )}
             </div>
 
-            {/* Save button */}
+            {/* Save button — desktop only */}
             <motion.button
               onClick={handleSave}
               disabled={saving}
               whileHover={{ scale: saving ? 1 : 1.02 }}
               whileTap={{ scale: saving ? 1 : 0.98 }}
-              className="btn-primary w-full flex items-center justify-center gap-2 py-3 mt-4"
+              className="btn-primary w-full hidden lg:flex items-center justify-center gap-2 py-3 mt-4"
             >
               {saving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
               {saving ? 'Guardando...' : 'Guardar operación'}
@@ -598,6 +598,26 @@ export default function OperationFormPage({ operationId, onBack, onSaved }: Prop
           </motion.div>
         </div>
       </div>
+
+      {/* Sticky bottom save button — mobile only */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden"
+        style={{ background: 'linear-gradient(to top, rgba(8,12,21,0.98) 70%, transparent)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <div className="px-4 pb-4 pt-3 max-w-4xl mx-auto">
+          <motion.button
+            onClick={handleSave}
+            disabled={saving}
+            whileTap={{ scale: saving ? 1 : 0.97 }}
+            className="btn-primary w-full flex items-center justify-center gap-2 py-3.5 text-sm font-semibold"
+            style={{ boxShadow: '0 -4px 20px rgba(59,130,246,0.3)' }}
+          >
+            {saving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
+            {saving ? 'Guardando...' : 'Guardar operación'}
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Spacer to prevent content being hidden behind fixed button on mobile */}
+      <div className="h-20 lg:hidden" />
     </div>
   )
 }

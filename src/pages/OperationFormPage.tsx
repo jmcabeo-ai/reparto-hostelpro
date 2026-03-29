@@ -600,35 +600,38 @@ export default function OperationFormPage({ operationId, onBack, onSaved }: Prop
         </div>
       </div>
 
-      {/* Spacer to prevent content being hidden behind fixed button on mobile */}
-      <div className="h-24 lg:hidden" />
-
-      {/* Sticky bottom save button — mobile only, via portal to escape overflow:auto */}
+      {/* FAB save button — mobile only, via portal to escape overflow:auto */}
       {createPortal(
-        <div className="lg:hidden" style={{
-          position: 'fixed',
-          bottom: 68,
-          left: 0,
-          right: 0,
-          zIndex: 55,
-          background: 'linear-gradient(to top, rgba(8,12,21,0.98) 60%, transparent)',
-          padding: '12px 16px 8px',
-        }}>
-          <motion.button
-            onClick={handleSave}
-            disabled={saving}
-            whileTap={{ scale: saving ? 1 : 0.97 }}
-            className="btn-primary w-full flex items-center justify-center gap-2 text-sm font-semibold"
-            style={{
-              boxShadow: '0 -4px 20px rgba(59,130,246,0.3)',
-              padding: '14px 20px',
-              borderRadius: 12,
-            }}
-          >
-            {saving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
-            {saving ? 'Guardando...' : 'Guardar operación'}
-          </motion.button>
-        </div>,
+        <motion.button
+          onClick={handleSave}
+          disabled={saving}
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0, opacity: 0 }}
+          whileTap={{ scale: 0.9 }}
+          className="lg:hidden"
+          style={{
+            position: 'fixed',
+            bottom: 80,
+            left: 16,
+            zIndex: 55,
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            background: 'rgba(37, 99, 235, 0.85)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(96, 165, 250, 0.3)',
+            boxShadow: '0 4px 24px rgba(59,130,246,0.4), 0 0 0 1px rgba(59,130,246,0.1)',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+          }}
+        >
+          {saving ? <Loader2 size={22} className="animate-spin" /> : <Save size={22} />}
+        </motion.button>,
         document.body
       )}
     </div>

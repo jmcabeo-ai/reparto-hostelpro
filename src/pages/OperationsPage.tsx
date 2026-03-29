@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Plus, Search, Filter, Edit3, Trash2 } from 'lucide-react'
 import { useOperations } from '../hooks/useOperations'
@@ -52,7 +53,7 @@ export default function OperationsPage({ onNavigate }: Props) {
           onClick={() => onNavigate('new-operation')}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary hidden sm:flex items-center gap-2"
         >
           <Plus size={16} /> Nueva
         </motion.button>
@@ -189,6 +190,37 @@ export default function OperationsPage({ onNavigate }: Props) {
           )}
         </AnimatePresence>
       </div>
+
+      {/* FAB "+" para móvil — siempre visible */}
+      {createPortal(
+        <motion.button
+          onClick={() => onNavigate('new-operation')}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.9 }}
+          className="sm:hidden"
+          style={{
+            position: 'fixed',
+            bottom: 80,
+            left: 16,
+            zIndex: 55,
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+            boxShadow: '0 4px 24px rgba(59,130,246,0.45)',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            border: 'none',
+          }}
+        >
+          <Plus size={24} />
+        </motion.button>,
+        document.body
+      )}
     </div>
   )
 }

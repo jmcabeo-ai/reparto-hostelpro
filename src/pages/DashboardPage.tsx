@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion } from 'framer-motion'
 import { TrendingUp, Clock, CheckCircle, Euro, Plus, ArrowRight, Calendar } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
@@ -145,7 +146,7 @@ export default function DashboardPage({ onNavigate }: Props) {
           onClick={() => onNavigate('new-operation')}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className="btn-primary flex items-center gap-1.5 text-sm py-2 px-4"
+          className="btn-primary hidden sm:flex items-center gap-1.5 text-sm py-2 px-4"
         >
           <Plus size={15} /> Nueva operación
         </motion.button>
@@ -358,6 +359,37 @@ export default function DashboardPage({ onNavigate }: Props) {
             ))}
           </div>
         </motion.div>
+      )}
+
+      {/* FAB "+" para móvil */}
+      {createPortal(
+        <motion.button
+          onClick={() => onNavigate('new-operation')}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.9 }}
+          className="sm:hidden"
+          style={{
+            position: 'fixed',
+            bottom: 80,
+            left: 16,
+            zIndex: 55,
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+            boxShadow: '0 4px 24px rgba(59,130,246,0.45)',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            border: 'none',
+          }}
+        >
+          <Plus size={24} />
+        </motion.button>,
+        document.body
       )}
     </div>
   )

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus, Search, Filter, Edit3, Trash2 } from 'lucide-react'
+import { Plus, Search, Filter, Trash2 } from 'lucide-react'
 import { useOperations } from '../hooks/useOperations'
 import { formatEUR, formatDate } from '../lib/profit'
 import { supabase } from '../lib/supabase'
@@ -112,13 +112,14 @@ export default function OperationsPage({ onNavigate }: Props) {
             </motion.div>
           ) : (
             filtered.map((op, i) => (
-              <motion.div
+              <motion.button
+                onClick={() => onNavigate('edit-operation', op.id)}
                 key={op.id}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ delay: i * 0.03 }}
-                className="glass rounded-2xl p-5 card-hover flex items-center gap-4 group"
+                className="glass rounded-2xl p-5 card-hover flex items-center gap-4 group w-full text-left"
               >
                 {/* Avatar */}
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
@@ -170,22 +171,14 @@ export default function OperationsPage({ onNavigate }: Props) {
                 <div className="flex items-center gap-2 flex-shrink-0 lg:opacity-0 lg:group-hover:opacity-100 lg:transition-opacity">
                   <motion.button
                     whileTap={{ scale: 0.92 }}
-                    onClick={() => onNavigate('edit-operation', op.id)}
-                    className="p-3 rounded-xl transition-colors"
-                    style={{ background: 'rgba(59,130,246,0.12)', color: '#3b82f6' }}
-                  >
-                    <Edit3 size={18} />
-                  </motion.button>
-                  <motion.button
-                    whileTap={{ scale: 0.92 }}
-                    onClick={() => handleDelete(op.id)}
+                    onClick={(e) => { e.stopPropagation(); handleDelete(op.id); }}
                     className="p-3 rounded-xl transition-colors"
                     style={{ background: 'rgba(239,68,68,0.1)', color: '#ef4444' }}
                   >
                     <Trash2 size={18} />
                   </motion.button>
                 </div>
-              </motion.div>
+              </motion.button>
             ))
           )}
         </AnimatePresence>

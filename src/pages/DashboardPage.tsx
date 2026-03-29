@@ -135,7 +135,7 @@ export default function DashboardPage({ onNavigate }: Props) {
   })
 
   return (
-    <div className="px-4 py-4 sm:px-8 lg:px-14 max-w-7xl mx-auto space-y-4">
+    <div className="px-5 py-6 pb-28 sm:px-8 lg:px-14 max-w-7xl mx-auto space-y-6">
       {/* Header */}
       <motion.div {...fadeUp()} className="flex items-center justify-between">
         <div>

@@ -294,7 +294,7 @@ export default function OperationFormPage({ operationId, onBack, onSaved }: Prop
   }
 
   return (
-    <div className="px-4 py-4 sm:px-8 lg:px-14 max-w-4xl mx-auto space-y-4">
+    <div className="px-5 py-6 pb-28 sm:px-8 lg:px-14 max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-4">
         <button onClick={onBack} className="p-2 rounded-xl transition-colors" style={{ background: 'rgba(255,255,255,0.05)', color: '#64748b' }}

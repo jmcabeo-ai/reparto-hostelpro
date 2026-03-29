@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeftRight, Plus, X, Loader2, Calendar, MessageSquare, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
@@ -68,7 +69,7 @@ export default function SettlementsPage() {
   const total = settlements.reduce((s, sett) => s + sett.amount, 0)
 
   return (
-    <div className="px-6 py-6 sm:px-10 lg:px-14 max-w-4xl mx-auto space-y-5">
+    <div className="px-5 py-6 pb-28 sm:px-10 lg:px-14 max-w-4xl mx-auto space-y-6">
       {/* Header */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between">
         <div>
@@ -79,7 +80,7 @@ export default function SettlementsPage() {
           onClick={() => setShowForm(true)}
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary hidden sm:flex items-center gap-2"
         >
           <Plus size={16} /> Registrar pago
         </motion.button>
@@ -229,6 +230,37 @@ export default function SettlementsPage() {
           ))
         )}
       </div>
+
+      {/* FAB "+" para móvil */}
+      {createPortal(
+        <motion.button
+          onClick={() => setShowForm(true)}
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          whileTap={{ scale: 0.9 }}
+          className="sm:hidden"
+          style={{
+            position: 'fixed',
+            bottom: 80,
+            left: 16,
+            zIndex: 55,
+            width: 56,
+            height: 56,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+            boxShadow: '0 4px 24px rgba(59,130,246,0.45)',
+            color: 'white',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            border: 'none',
+          }}
+        >
+          <Plus size={24} />
+        </motion.button>,
+        document.body
+      )}
     </div>
   )
 }

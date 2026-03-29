@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowLeft, Plus, Trash2, Save, TrendingUp, Info, Loader2, Banknote, Calendar } from 'lucide-react'
 import { supabase } from '../lib/supabase'
@@ -599,25 +600,37 @@ export default function OperationFormPage({ operationId, onBack, onSaved }: Prop
         </div>
       </div>
 
-      {/* Sticky bottom save button — mobile only */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden"
-        style={{ background: 'linear-gradient(to top, rgba(8,12,21,0.98) 70%, transparent)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <div className="px-4 pb-4 pt-3 max-w-4xl mx-auto">
+      {/* Spacer to prevent content being hidden behind fixed button on mobile */}
+      <div className="h-24 lg:hidden" />
+
+      {/* Sticky bottom save button — mobile only, via portal to escape overflow:auto */}
+      {createPortal(
+        <div className="lg:hidden" style={{
+          position: 'fixed',
+          bottom: 68,
+          left: 0,
+          right: 0,
+          zIndex: 55,
+          background: 'linear-gradient(to top, rgba(8,12,21,0.98) 60%, transparent)',
+          padding: '12px 16px 8px',
+        }}>
           <motion.button
             onClick={handleSave}
             disabled={saving}
             whileTap={{ scale: saving ? 1 : 0.97 }}
-            className="btn-primary w-full flex items-center justify-center gap-2 py-3.5 text-sm font-semibold"
-            style={{ boxShadow: '0 -4px 20px rgba(59,130,246,0.3)' }}
+            className="btn-primary w-full flex items-center justify-center gap-2 text-sm font-semibold"
+            style={{
+              boxShadow: '0 -4px 20px rgba(59,130,246,0.3)',
+              padding: '14px 20px',
+              borderRadius: 12,
+            }}
           >
             {saving ? <Loader2 size={16} className="animate-spin" /> : <Save size={16} />}
             {saving ? 'Guardando...' : 'Guardar operación'}
           </motion.button>
-        </div>
-      </div>
-
-      {/* Spacer to prevent content being hidden behind fixed button on mobile */}
-      <div className="h-20 lg:hidden" />
+        </div>,
+        document.body
+      )}
     </div>
   )
 }
